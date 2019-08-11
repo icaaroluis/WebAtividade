@@ -1,0 +1,180 @@
+﻿
+<form id="formCadastro">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Nome">Nome:</label>
+                <input required="required" type="text" class="form-control" id="Nome" name="Nome" placeholder="Ex.: João" maxlength="50">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Sobrenome">Sobrenome:</label>
+                <input required="required" type="text" class="form-control" id="Sobrenome" name="Sobrenome" placeholder="Ex.: da Silva" maxlength="255">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="CPF">CPF:</label>
+                    <input required="required" type="text" class="form-control" id="Cpf" name="Cpf" placeholder="Ex.: 999.999.999-99" maxlength="14" onKeyPress="MascaraCPF(formCadastro.Cpf);" onBlur="ValidarCPF($('#Cpf').val());">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Nacionalidade">Nacionalidade:</label>
+                <input required="required" type="text" class="form-control" id="Nacionalidade" name="Nacionalidade" placeholder="Ex.: brasileira" maxlength="50">
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="CEP">CEP:</label>
+                <input required="required" type="text" class="form-control" id="CEP" name="CEP" placeholder="Ex.: 01011-100" maxlength="9">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Estado">Estado:</label>
+                <select required="required" id="Estado" class="form-control" name="Estado">
+                    <option value="">Selecione</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="PE">Pernambuco</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="Cidade">Cidade:</label>
+                <input required="required" type="text" class="form-control" id="Cidade" name="Cidade" maxlength="50" placeholder="Ex.: São Paulo">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Logradouro">Logradouro:</label>
+                <input required="required" type="text" class="form-control" id="Logradouro" name="Logradouro" placeholder="Ex.: Rua Boa Vista 253" maxlength="500">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Email">E-mail:</label>
+                <input required="required" type="text" class="form-control" id="Email" name="Email" placeholder="Ex.: email@email.com" maxlength="2079">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Telefone">Telefone:</label>
+                <input required="required" type="tel" class="form-control" id="Telefone" name="Telefone" placeholder="Ex.: (11) 2020-3030" maxlength="15">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="pull-left">
+                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalCadastroBeneficiario">
+                    Beneficiários
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="pull-right">
+                <button onclick="Cadastro()" class="btn btn-sm btn-success">Salvar</button>
+                @Html.ActionLink("Voltar", "Index", "Cliente", new { }, new { @class = "btn btn-sm btn-danger" })
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<form id="formCadastroBeneficiario" >
+    <div class="modal fade" id="modalCadastroBeneficiario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="tituloBeneficiario">Beneficiários</h3>
+                </div>
+                <div class="col-sm-12" style="padding-top: 10px;">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="CPF">CPF:</label>
+                                <input required="required" type="text" class="form-control" id="CpfBeneficiario" name="CpfBeneficiario" placeholder="Ex.: 999.999.999-99" maxlength="14" onKeyPress="MascaraCPF(formCadastroBeneficiario.CpfBeneficiario);" onBlur="ValidarCPF($('#CpfBeneficiario').val());">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="NomeBeneficiario">Nome Beneficiario:</label>
+                                <input required="required" type="text" class="form-control" id="NomeBeneficiario" name="NomeBeneficiario" placeholder="Ex.: João" maxlength="255">
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top: 26px">
+                            <button onclick="CadastrarBeneficiario()" class="btn btn-sm btn-success">Incluir</button>
+                        </div>
+                    </div>
+                        <div class="col-md-12">
+                            <table id="gridBeneficiario" class="table"></table>
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button  class="btn btn-light" aria-label="Close" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form id="formEditeBeneficiario" >
+    <div class="modal fade" id="modalEditeBeneficiario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="tituloBeneficiario">Edição Beneficiários</h3>
+                    <input  type="text" class="form-control hidden" id="EditeIdBeneficiario" name="EditeIdBeneficiario">
+                </div>
+                <div class="col-sm-12" style="padding-top: 10px;">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="CPF">CPF:</label>
+                                <input required="required" type="text" class="form-control" id="EditeCpfBeneficiario" name="EditeCpfBeneficiario" placeholder="Ex.: 999.999.999-99" maxlength="14" onKeyPress="MascaraCPF(formEditeBeneficiario.EditeCpfBeneficiario);" onBlur="ValidarCPF($('#EditeCpfBeneficiario').val());">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="NomeBeneficiario">Nome Beneficiario:</label>
+                                <input required="required" type="text" class="form-control" id="EditeNomeBeneficiario" name="EditeNomeBeneficiario" placeholder="Ex.: João" maxlength="255">
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding-top: 26px">
+                            <button onclick="AtualizarBeneficiario()" class="btn btn-sm btn-success">Atualizar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" aria-label="Close" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
